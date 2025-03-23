@@ -1,0 +1,176 @@
+{
+    "asset": {
+        "version": "2.0",
+        "generator": "Open Asset Import Library (assimp v5.4.0)"
+    },
+    "extensionsUsed": [
+        "KHR_materials_volume",
+        "FB_ngon_encoding"
+    ],
+    "accessors": [
+        {
+            "bufferView": 0,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 565,
+            "type": "VEC3",
+            "max": [
+                0.9842419028282166,
+                0.7789513468742371,
+                0.4311566948890686
+            ],
+            "min": [
+                -0.9842419028282166,
+                -7.024452486348309e-8,
+                -0.5179620981216431
+            ]
+        },
+        {
+            "bufferView": 1,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 565,
+            "type": "VEC3",
+            "max": [
+                0.9986253976821899,
+                0.9997645616531372,
+                1.0
+            ],
+            "min": [
+                -0.9986256957054138,
+                -1.0,
+                -0.9988469481468201
+            ]
+        },
+        {
+            "bufferView": 2,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 565,
+            "type": "VEC2",
+            "max": [
+                0.9682367444038391,
+                0.5030534267425537
+            ],
+            "min": [
+                0.9519993662834167,
+                0.4175163507461548
+            ]
+        },
+        {
+            "bufferView": 3,
+            "byteOffset": 0,
+            "componentType": 5125,
+            "count": 1704,
+            "type": "SCALAR",
+            "max": [
+                564
+            ],
+            "min": [
+                0
+            ]
+        }
+    ],
+    "buffers": [
+        {
+            "byteLength": 24896,
+            "uri": "sofa_001_0.bin"
+        }
+    ],
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 6780,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 6780,
+            "byteLength": 6780,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 13560,
+            "byteLength": 4520,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 18080,
+            "byteLength": 6816,
+            "target": 34963
+        }
+    ],
+    "images": [
+        {
+            "uri": "textures/image_0.png"
+        }
+    ],
+    "materials": [
+        {
+            "name": "Material",
+            "pbrMetallicRoughness": {
+                "baseColorTexture": {
+                    "index": 0
+                },
+                "metallicFactor": 0.0,
+                "roughnessFactor": 0.36403316259384155
+            },
+            "doubleSided": true
+        }
+    ],
+    "meshes": [
+        {
+            "name": "meshes[0]",
+            "primitives": [
+                {
+                    "mode": 4,
+                    "material": 0,
+                    "indices": 3,
+                    "attributes": {
+                        "POSITION": 0,
+                        "NORMAL": 1,
+                        "TEXCOORD_0": 2
+                    }
+                }
+            ]
+        }
+    ],
+    "nodes": [
+        {
+            "name": "sofa_001",
+            "children": [
+                1
+            ]
+        },
+        {
+            "name": "sofa_001_node",
+            "mesh": 0,
+            "extras": {
+                "name": "sofa_001"
+            }
+        }
+    ],
+    "samplers": [
+        {
+            "magFilter": 9729,
+            "minFilter": 9987
+        }
+    ],
+    "scenes": [
+        {
+            "nodes": [
+                0
+            ]
+        }
+    ],
+    "textures": [
+        {
+            "source": 0,
+            "sampler": 0
+        }
+    ],
+    "scene": 0
+}

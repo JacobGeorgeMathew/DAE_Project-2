@@ -1,0 +1,176 @@
+{
+    "asset": {
+        "version": "2.0",
+        "generator": "Open Asset Import Library (assimp v5.4.0)"
+    },
+    "extensionsUsed": [
+        "KHR_materials_volume",
+        "FB_ngon_encoding"
+    ],
+    "accessors": [
+        {
+            "bufferView": 0,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 358,
+            "type": "VEC3",
+            "max": [
+                0.32930949330329895,
+                0.9363785982131958,
+                0.3572964668273926
+            ],
+            "min": [
+                -0.3283858001232147,
+                -0.003615665715187788,
+                -0.34220635890960693
+            ]
+        },
+        {
+            "bufferView": 1,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 358,
+            "type": "VEC3",
+            "max": [
+                0.9998978972434998,
+                1.0,
+                0.999897837638855
+            ],
+            "min": [
+                -0.9998978972434998,
+                -1.0,
+                -0.9998977780342102
+            ]
+        },
+        {
+            "bufferView": 2,
+            "byteOffset": 0,
+            "componentType": 5126,
+            "count": 358,
+            "type": "VEC2",
+            "max": [
+                0.8987475037574768,
+                0.6116130948066711
+            ],
+            "min": [
+                0.7732863426208496,
+                0.20460498332977295
+            ]
+        },
+        {
+            "bufferView": 3,
+            "byteOffset": 0,
+            "componentType": 5125,
+            "count": 1332,
+            "type": "SCALAR",
+            "max": [
+                357
+            ],
+            "min": [
+                0
+            ]
+        }
+    ],
+    "buffers": [
+        {
+            "byteLength": 16784,
+            "uri": "lounge_chair_001_0.bin"
+        }
+    ],
+    "bufferViews": [
+        {
+            "buffer": 0,
+            "byteOffset": 0,
+            "byteLength": 4296,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 4296,
+            "byteLength": 4296,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 8592,
+            "byteLength": 2864,
+            "target": 34962
+        },
+        {
+            "buffer": 0,
+            "byteOffset": 11456,
+            "byteLength": 5328,
+            "target": 34963
+        }
+    ],
+    "images": [
+        {
+            "uri": "textures/image_0.png"
+        }
+    ],
+    "materials": [
+        {
+            "name": "Material",
+            "pbrMetallicRoughness": {
+                "baseColorTexture": {
+                    "index": 0
+                },
+                "metallicFactor": 0.0,
+                "roughnessFactor": 0.36403316259384155
+            },
+            "doubleSided": true
+        }
+    ],
+    "meshes": [
+        {
+            "name": "meshes[0]",
+            "primitives": [
+                {
+                    "mode": 4,
+                    "material": 0,
+                    "indices": 3,
+                    "attributes": {
+                        "POSITION": 0,
+                        "NORMAL": 1,
+                        "TEXCOORD_0": 2
+                    }
+                }
+            ]
+        }
+    ],
+    "nodes": [
+        {
+            "name": "lounge_chair_001",
+            "children": [
+                1
+            ]
+        },
+        {
+            "name": "lounge_chair_001_node",
+            "mesh": 0,
+            "extras": {
+                "name": "lounge_chair_001"
+            }
+        }
+    ],
+    "samplers": [
+        {
+            "magFilter": 9729,
+            "minFilter": 9987
+        }
+    ],
+    "scenes": [
+        {
+            "nodes": [
+                0
+            ]
+        }
+    ],
+    "textures": [
+        {
+            "source": 0,
+            "sampler": 0
+        }
+    ],
+    "scene": 0
+}
