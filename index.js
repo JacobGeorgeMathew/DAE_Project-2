@@ -16,28 +16,28 @@ const modelConfigs = {
   'chair1': {
     path: 'Chair_1v2.gltf',
     path2: './public/model/',
-    position: [-1, 1.5, -1],
+    position: [-1, 1, -2],
     rotation: [-Math.PI / 2, 0, Math.PI / 0.5],
     scale: [0.004, 0.004, 0.004]
   },
   'table1': {
     path: 'scene.gltf',
     path2: './public/model/table_001/',
-    position: [0, -1, 0],
+    position: [0, -1, -2],
     rotation: [0, Math.PI / 4, 0],
     scale: [5, 5, 5]
   },
   'sofa1': {
     path: 'sofa_001.gltf',
     path2: './public/model/sofa_001/',
-    position: [0, 0, -2],
+    position: [0, -1.5, -4],
     rotation: [Math.PI / 0.5, Math.PI / 16, Math.PI / 0.5],
-      scale: [5, 5, 5]
+      scale: [4, 4, 4]
     },
     'wardrobe': {
       path: 'lounge_chair_001.gltf',
     path2: './public/model/chair_002/',
-    position: [0, -2, -2],
+    position: [0, -1.5, -3],
     rotation: [Math.PI / 0.5, Math.PI / 16, Math.PI / 0.5],
       scale: [5, 5, 5]
     }
@@ -71,7 +71,7 @@ scene.add(ambientLight);
 
 // Create a camera
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(4, 3, 7); // Better initial position
+camera.position.set(0.5, 2, 7); // Better initial position
 
 // Set the target point - this is the center of rotation
 const rotationCenter = new THREE.Vector3(0, 1, 0); // Adjust to change rotation axis
@@ -245,12 +245,14 @@ scene.add(gridHelper);
 
   // Add this after your scene creation but before loading the model
 function addLivingRoomBackground(scene) {
+  const loader = new GLTFLoader();
+  
   // Add floor
   const floorGeometry = new THREE.PlaneGeometry(20, 20);
   const floorMaterial = new THREE.MeshStandardMaterial({ 
-    color: 0xe0e0e0,
-    roughness: 0.8,
-    metalness: 0.2
+    color: 0xf0f0f0,  // Lighter floor color
+    roughness: 0.6,
+    metalness: 0.1
   });
   const floor = new THREE.Mesh(floorGeometry, floorMaterial);
   floor.rotation.x = -Math.PI / 2;
@@ -258,10 +260,10 @@ function addLivingRoomBackground(scene) {
   floor.receiveShadow = true;
   scene.add(floor);
   
-  // Add walls
+  // Add walls with brighter color for more light
   const wallMaterial = new THREE.MeshStandardMaterial({ 
-    color: 0xf5f5f5,
-    roughness: 0.9,
+    color: 0xfafafa,  // Much brighter wall color
+    roughness: 0.7,
     metalness: 0.1
   });
   
@@ -278,11 +280,19 @@ function addLivingRoomBackground(scene) {
   leftWall.rotation.y = Math.PI / 2;
   scene.add(leftWall);
   
-  // Add a window on the back wall
+  // Add light from window direction
+  const windowLight = new THREE.DirectionalLight(0xffffff, 2);
+  windowLight.position.set(5, 4, -9);
+  windowLight.castShadow = true;
+  windowLight.shadow.mapSize.width = 1024;
+  windowLight.shadow.mapSize.height = 1024;
+  scene.add(windowLight);
+  
+  // Add a window on the back wall (keeping this as is since it adds depth)
   const windowFrame = new THREE.Group();
   
   const frameGeometry = new THREE.BoxGeometry(5, 3, 0.2);
-  const frameMaterial = new THREE.MeshStandardMaterial({ color: 0xaaaaaa });
+  const frameMaterial = new THREE.MeshStandardMaterial({ color: 0xdddddd });
   const windowFrameMesh = new THREE.Mesh(frameGeometry, frameMaterial);
   
   const windowGlassGeometry = new THREE.PlaneGeometry(4.7, 2.7);
@@ -301,46 +311,100 @@ function addLivingRoomBackground(scene) {
   windowFrame.position.set(0, 3, -9.9);
   scene.add(windowFrame);
   
-  // Add a plant in the corner
-  const potGeometry = new THREE.CylinderGeometry(0.6, 0.4, 0.8, 32);
-  const potMaterial = new THREE.MeshStandardMaterial({ color: 0xd7b27b });
-  const pot = new THREE.Mesh(potGeometry, potMaterial);
-  pot.position.set(-8, -1.6, -8);
-  scene.add(pot);
+  // Load 3D model of plant
+  loader.load('./public/model/plant_001/scene.gltf', (gltf) => {
+    const plant = gltf.scene;
+    
+    // Scale and position the plant
+    plant.scale.set(0.05, 0.05, 0.05); // Adjust scale as needed
+    plant.position.set(-8, -2, -8);
+    
+    // Enable shadows
+    plant.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+    
+    scene.add(plant);
+  }, undefined, (error) => {
+    console.error('Error loading plant model:', error);
+    // Fallback to a simple plant if model fails to load
+    createSimplePlant(scene);
+  });
   
-  // Simple plant using spheres
-  const plantMaterial = new THREE.MeshStandardMaterial({ color: 0x4ca64c });
-  const plant = new THREE.Group();
+  // Load 3D model of picture frame
+  loader.load('./public/model/clock_001/scene.gltf', (gltf) => {
+    const picture = gltf.scene;
+    
+    // Scale and position the picture frame
+    picture.scale.set(3, 3, 3); // Adjust scale as needed
+    picture.position.set(-6, 4, -9.8);
+    
+    // Enable shadows
+    picture.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+    
+    scene.add(picture);
+  }, undefined, (error) => {
+    console.error('Error loading picture model:', error);
+  });
   
-  for (let i = 0; i < 8; i++) {
-    const leafSize = 0.3 + Math.random() * 0.4;
-    const leafGeometry = new THREE.SphereGeometry(leafSize, 8, 8);
-    const leaf = new THREE.Mesh(leafGeometry, plantMaterial);
-    leaf.position.set(
-      -8 + (Math.random() * 0.8 - 0.4),
-      -1 + (i * 0.4),
-      -8 + (Math.random() * 0.8 - 0.4)
-    );
-    leaf.scale.y = 1.5;
-    plant.add(leaf);
+  // Load 3D model of television
+  loader.load('./public/model/TV_001/scene.gltf', (gltf) => {
+    const tv = gltf.scene;
+    
+    // Scale and position the TV
+    tv.scale.set(0.05, 0.05, 0.05); // Adjust scale as needed
+    tv.position.set(3, 1, -9.5);
+    tv.rotation.set(0,Math.PI / 2,0);
+    
+    // Enable shadows
+    tv.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+    
+    scene.add(tv);
+  }, undefined, (error) => {
+    console.error('Error loading television model:', error);
+  });
+  
+  // Update renderer to have a brighter background color
+  renderer.setClearColor(0xf5f5f5);
+  
+  // Fallback function to create a simple plant if model fails to load
+  function createSimplePlant(scene) {
+    const potGeometry = new THREE.CylinderGeometry(0.6, 0.4, 0.8, 32);
+    const potMaterial = new THREE.MeshStandardMaterial({ color: 0xd7b27b });
+    const pot = new THREE.Mesh(potGeometry, potMaterial);
+    pot.position.set(-8, -1.6, -8);
+    scene.add(pot);
+    
+    const plantMaterial = new THREE.MeshStandardMaterial({ color: 0x4ca64c });
+    const plant = new THREE.Group();
+    
+    for (let i = 0; i < 8; i++) {
+      const leafSize = 0.3 + Math.random() * 0.4;
+      const leafGeometry = new THREE.SphereGeometry(leafSize, 8, 8);
+      const leaf = new THREE.Mesh(leafGeometry, plantMaterial);
+      leaf.position.set(
+        -8 + (Math.random() * 0.8 - 0.4),
+        -1 + (i * 0.4),
+        -8 + (Math.random() * 0.8 - 0.4)
+      );
+      leaf.scale.y = 1.5;
+      plant.add(leaf);
+    }
+    scene.add(plant);
   }
-  scene.add(plant);
-  
-  // Add a picture frame to the wall
-  const pictureFrameGeometry = new THREE.BoxGeometry(3, 2, 0.1);
-  const pictureFrameMaterial = new THREE.MeshStandardMaterial({ color: 0x8b4513 });
-  const pictureFrame = new THREE.Mesh(pictureFrameGeometry, pictureFrameMaterial);
-  pictureFrame.position.set(-6, 4, -9.8);
-  scene.add(pictureFrame);
-  
-  const pictureGeometry = new THREE.PlaneGeometry(2.7, 1.7);
-  const pictureMaterial = new THREE.MeshBasicMaterial({ color: 0xe0f0ff });
-  const picture = new THREE.Mesh(pictureGeometry, pictureMaterial);
-  picture.position.set(-6, 4, -9.75);
-  scene.add(picture);
-  
-  // Update renderer to have a nicer background color
-  renderer.setClearColor(0xeeeeee);
   
   return {
     setWallColor: (color) => {
@@ -434,7 +498,7 @@ window.ToggleRotation = function() {
 
 // Function to reset camera to initial position
 window.ResetView = function() {
-  camera.position.set(4, 3, 7);
+  camera.position.set(0.5, 2, 7);
   controls.target.copy(rotationCenter);
   controls.update();
 };
@@ -503,4 +567,4 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-animate();
+animate()
